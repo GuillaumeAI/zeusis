@@ -19,6 +19,7 @@ dockertag="docker.io/guillaumeai/server:zeuz-mssql-ml-ubuntu-16.04-ssis"
 
 dockertag="docker.io/jgwill/zeus:zeuzis-2206150918"
 dockertag="docker.io/guillaumeai/server:zeuz-mssql-ml-ubuntu-16.04-ssis2"
+dockertag="docker.io/guillaumeai/server:zeuz-mssql-ml-ubuntu-16.04-ssis3"
 
 containername=zeuzis
 
@@ -36,7 +37,7 @@ AppSuiteConfigRootPathMount="-v $AppSuiteConfigRootPath:/var/lib/caishen/config"
 
 cmd="docker $RUNMODE $EULA_STUFF --name $containername \
      $AppSuiteDataRootPathMount $AppSuiteConfigRootPathMount \
-     -e MSSQL_SA_PASSWORD="\'$SAPWD\'" \
+     -e MSSQL_SA_PASSWORD=$SAPWD \
      -v $ddir:$mlocation -v $(pwd):/work \
      $MSSQL_PORTMAP $SSIS_PORTMAP $MSSQL_PORTMAP_1431 $WWW_PORTMAP \
      $dockertag $2 $3 $4 $5 $6"

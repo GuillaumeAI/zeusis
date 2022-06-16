@@ -38,26 +38,26 @@ RUN curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server-2019.li
 
 
 # MSSQL
-RUN apt-get update && \
-        apt-get install -y mssql-server && \
-    # Cleanup the Dockerfile
-    apt-get clean && \
-    rm -rf /var/apt/cache/* /tmp/* /var/tmp/* /var/lib/apt/lists
+#RUN apt-get update && \
+#        apt-get install -y mssql-server && \
+#    # Cleanup the Dockerfile
+#    apt-get clean && \
+#    rm -rf /var/apt/cache/* /tmp/* /var/tmp/* /var/lib/apt/lists
 
 
-    # Install optional packages
-RUN    apt-get update && \
-       apt-get install -y mssql-server-ha  && \
-    # Cleanup the Dockerfile
-    apt-get clean && \
-    rm -rf /var/apt/cache/* /tmp/* /var/tmp/* /var/lib/apt/lists
+#    # Install optional packages
+#RUN    apt-get update && \
+#       apt-get install -y mssql-server-ha  && \
+#    # Cleanup the Dockerfile
+#    apt-get clean && \
+#    rm -rf /var/apt/cache/* /tmp/* /var/tmp/* /var/lib/apt/lists
 
-    # Install optional packages
-RUN    apt-get update && \
-       apt-get install -y mssql-server-fts  && \
-    # Cleanup the Dockerfile
-    apt-get clean && \
-    rm -rf /var/apt/cache/* /tmp/* /var/tmp/* /var/lib/apt/lists
+#    # Install optional packages
+#RUN    apt-get update && \
+#       apt-get install -y mssql-server-fts  && \
+#    # Cleanup the Dockerfile
+#    apt-get clean && \
+#    rm -rf /var/apt/cache/* /tmp/* /var/tmp/* /var/lib/apt/lists
 
 
 # SSIS
@@ -116,11 +116,11 @@ RUN apt update && \
     apt-get install -y   supervisor 
 
 # expose SQL Server port
-EXPOSE 1433
-EXPOSE 1431
+#EXPOSE 1433
+#EXPOSE 1431
 
 # would be SSIS, not sure
-EXPOSE 3882
+#EXPOSE 3882
 
 # start services with supervisord
 CMD /usr/bin/supervisord -n -c /usr/local/etc/supervisord.conf
