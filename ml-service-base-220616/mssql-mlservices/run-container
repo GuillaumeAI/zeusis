@@ -1,0 +1,20 @@
+#!/bin/bash
+
+. _env.sh
+. .env
+
+
+cmd="docker run -it --rm \
+    --name $containername \
+    -e 'ACCEPT_EULA=Y' \
+    -e 'MSSQL_PID=Developer' \
+    -e 'ACCEPT_EULA_ML=Y' \
+    -e 'MSSQL_SA_PASSWORD='$MSSQL_SA_PASSWORD  \
+    -v $MSSQL_MLS_LOCAL_PATH:/var/opt/mssql \
+    -p 1435:1433 \
+    $dockertag"
+echo "$cmd"
+$cmd
+
+    #mssql-server-mlservices
+    

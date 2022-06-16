@@ -1,6 +1,6 @@
 # Maintainers: Microsoft Corporation 
 #jgwill/ubuntu:16.04
-FROM jgwill/ubuntu:16.04-py3.7.1
+FROM jgwill/ubuntu:16.04-py3.7.1-ml
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -103,16 +103,24 @@ RUN /opt/mssql/bin/checkinstallextensibility.sh && \
     # locale-gen
     locale-gen en_US.UTF-8
 
-# expose SQL Server port
-EXPOSE 1433
-
-# would be SSIS, not sure
-EXPOSE 3882
 
 
 #old # Run SQL Server process
 #CMD /opt/mssql/bin/sqlservr
 
+
+# copy in supervisord conf file
+COPY ./supervisord.conf /usr/local/etc/supervisord.conf
+
+RUN apt update && \
+    apt-get install -y   supervisor 
+
+# expose SQL Server port
+EXPOSE 1433
+EXPOSE 1431
+
+# would be SSIS, not sure
+EXPOSE 3882
 
 # start services with supervisord
 CMD /usr/bin/supervisord -n -c /usr/local/etc/supervisord.conf

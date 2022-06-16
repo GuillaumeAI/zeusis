@@ -8,6 +8,8 @@ else # Do the work
 mlocation=/data
 
 RUNMODE="run -d"
+if [ "$1" == "fg" ] ; then RUNMODE="run -it --rm ";fi
+
 dockertag="docker.io/guillaumeai/server:mssql-mls-220312"
 
 dockertag="docker.io/guillaumeai/server:zeuz"
@@ -22,14 +24,22 @@ containername=zeuzis
 
 if [ "$1" == "--rm" ]; then docker rm -f $containername ;fi
 
+#Ports
 MSSQL_PORTMAP="-p 1433:1433"
+WWW_PORTMAP="-p 8433:8433" #futur Web access
+MSSQL_PORTMAP_1431="-p 1431:1431"
 SSIS_PORTMAP="-p 3882:3882"
 
+#volument
+AppSuiteDataRootPathMount="-v $AppSuiteDataRootPath:/var/lib/caishen/data"
+AppSuiteConfigRootPathMount="-v $AppSuiteConfigRootPath:/var/lib/caishen/config"
+
 cmd="docker $RUNMODE $EULA_STUFF --name $containername \
-     -e MSSQL_SA_PASSWORD="$SAPWD" \
+     $AppSuiteDataRootPathMount $AppSuiteConfigRootPathMount \
+     -e MSSQL_SA_PASSWORD="\'$SAPWD\'" \
      -v $ddir:$mlocation -v $(pwd):/work \
-     $MSSQL_PORTMAP $SSIS_PORTMAP \
-     $dockertag"
+     $MSSQL_PORTMAP $SSIS_PORTMAP $MSSQL_PORTMAP_1431 $WWW_PORTMAP \
+     $dockertag $2 $3 $4 $5 $6"
 
 echo "$cmd"
 $cmd
