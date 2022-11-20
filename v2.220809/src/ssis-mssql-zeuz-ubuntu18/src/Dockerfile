@@ -75,6 +75,9 @@ RUN /opt/mssql/bin/checkinstallextensibility.sh && \
 
 # expose SQL Server port
 EXPOSE 1433
+RUN \
+    --mount=type=cache,target=/var/cache/apt \
+	apt install supervisor -y
 
 # start services with supervisord
 CMD /usr/bin/supervisord -n -c /usr/local/etc/supervisord.conf
