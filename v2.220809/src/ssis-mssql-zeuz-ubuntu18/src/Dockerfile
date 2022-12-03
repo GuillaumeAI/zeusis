@@ -49,14 +49,14 @@ RUN \
 #RUN apt update && apt-get install mssql-cli -y
 
 #SSIS
-RUN \
-    --mount=type=cache,target=/var/cache/apt \ 
-	DEBIAN_FRONTEND=noninteractive apt install -y mssql-server-is 
+#RUN \
+#    --mount=type=cache,target=/var/cache/apt \ 
+#	DEBIAN_FRONTEND=noninteractive apt install -y mssql-server-is 
     # Cleanup the Dockerfile
     #apt clean && \
     #rm -rf /var/apt/cache/* /tmp/* /var/tmp/* /var/lib/apt/lists
 
-COPY ssis.conf /var/opt/ssis/ssis.conf
+#COPY ssis.conf /var/opt/ssis/ssis.conf
 
 
 #Back to MSSQL stuff that seems to be required done after SSIS
